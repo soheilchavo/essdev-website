@@ -213,7 +213,7 @@ body {
   --outline-x: 50%;
   --outline-y: 50%;
   background: 
-    radial-gradient(circle at var(--gradient-x) var(--gradient-y), rgba(255, 255, 255, 0.08), rgba(208, 208, 208, 0.07));
+    radial-gradient(circle at var(--gradient-x) var(--gradient-y), rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.07));
   backdrop-filter: blur(20px);
   border-radius: 50px;
   box-shadow: 0 4px 62px 0 rgba(0,0,0,0.04);
@@ -307,6 +307,8 @@ body {
   padding: 4rem 5rem;
   max-width: 1200px;
   margin: 0 auto;
+  margin-left: 5rem;
+  margin-bottom: 3rem; /* Added for extra bottom spacing to match contact slide */
 }
 
 .text-content {
@@ -374,9 +376,8 @@ body {
 }
 
 .project-image {
-  width: 100%;
-  max-width: 420px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -531,7 +532,7 @@ body {
 }
 
 .highlight {
-  background: linear-gradient(45deg, #FFD323 55%, #FC1FED 80%);
+  background: linear-gradient(45deg, #FFD323, #FC1FED);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -666,8 +667,8 @@ body {
   }
 
   .project-image {
-    max-width: 380px;
-    height: 280px;
+    max-width: 300px;
+    height: 300px;
   }
 
   .contact-layout {
@@ -764,8 +765,8 @@ body {
   }
 
   .project-image {
-    max-width: 320px;
-    height: 220px;
+    max-width: 300px;
+    height: 300px;
   }
 
   .contact-layout {
@@ -865,8 +866,8 @@ body {
   }
 
   .project-image {
-    max-width: 280px;
-    height: 180px;
+    max-width: 200px;
+    height: 200px;
   }
 
   .contact-layout {

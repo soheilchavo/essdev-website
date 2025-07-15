@@ -30,6 +30,18 @@ function App() {
       ]
     },
     {
+      id: 3,
+      type: "about",
+      title: "About",
+      subtitle: "Queen's EngSoc Software Development Team",
+      description: "description",
+      links: [
+        { text: "link - link - link", href: "#" },
+        { text: "link - link", href: "#" }
+      ],
+      image: "/AboutImage.jpg" // updated to use the correct image from public
+    },
+    {
       id: 2,
       type: "examples",
       title: "Examples",
@@ -42,24 +54,12 @@ function App() {
       image: "/project-image.jpg" // placeholder for now
     },
     {
-      id: 3,
-      type: "about",
-      title: "About",
-      subtitle: "Queen's EngSoc Software Development Team",
-      description: "description",
-      links: [
-        { text: "link - link - link", href: "#" },
-        { text: "link - link", href: "#" }
-      ],
-      image: "/about-image.jpg" // placeholder for now
-    },
-    {
       id: 4,
       type: "contact",
       title: "Contact",
       email: "essdev@engsoc.queensu.ca",
       phone: "613-533-2323",
-      description: "description"
+      description: "The Engineering Society Software Developement team is open to all clients to request work. Projects are considered every September, and the team is always looking for more members."
     }
   ];
 
@@ -230,7 +230,7 @@ function App() {
       if (!isTransitioning && currentSlide < slides.length - 1) {
         nextSlide();
       }
-    }, 6000); // Change slide every 6 seconds
+    }, 12000); // Change slide every 6 seconds
 
     return () => clearInterval(interval);
   }, [isTransitioning, currentSlide, slides.length]);
@@ -239,15 +239,15 @@ function App() {
     <div className="App">
       {/* Navigation Header */}
       <nav className="navbar">
-        <div className="nav-brand">
+        <div className="nav-brand" onClick={() => goToSlide(0)} style={{ cursor: 'pointer' }}>
           <img src="/Logo.png" alt="essdev logo" className="logo" />
         </div>
         
         {/* Desktop Navigation */}
         <div className="nav-links desktop-nav">
-          <a href="#examples">examples</a>
-          <a href="#about">about</a>
-          <a href="#contact">contact</a>
+          <a href="#about" onClick={e => { e.preventDefault(); goToSlide(1); }} className="nav-link">about</a>
+          <a href="#examples" onClick={e => { e.preventDefault(); goToSlide(2); }} className="nav-link">examples</a>
+          <a href="#contact" onClick={e => { e.preventDefault(); goToSlide(3); }} className="nav-link">contact</a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -273,9 +273,9 @@ function App() {
             className="mobile-nav-links"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href="#examples" onClick={closeMobileMenu}>examples</a>
-            <a href="#about" onClick={closeMobileMenu}>about</a>
-            <a href="#contact" onClick={closeMobileMenu}>contact</a>
+            <a href="#about" onClick={e => { e.preventDefault(); goToSlide(1); closeMobileMenu(); }} className="nav-link">about</a>
+            <a href="#examples" onClick={e => { e.preventDefault(); goToSlide(2); closeMobileMenu(); }} className="nav-link">examples</a>
+            <a href="#contact" onClick={e => { e.preventDefault(); goToSlide(3); closeMobileMenu(); }} className="nav-link">contact</a>
           </div>
         </div>
       </nav>
@@ -301,11 +301,11 @@ function App() {
                       <p className="tagline">{slide.tagline}</p>
                       
                       <div className="bottom-nav">
-                        <a href={slide.bottomLinks[0].href} className="bottom-link">
+                        <a href={slide.bottomLinks[0].href} className="bottom-link" onClick={e => { e.preventDefault(); goToSlide(2); }}>
                           {slide.bottomLinks[0].text}
                         </a>
                         <span className="bottom-or">or</span>
-                        <a href={slide.bottomLinks[1].href} className="bottom-link">
+                        <a href={slide.bottomLinks[1].href} className="bottom-link" onClick={e => { e.preventDefault(); goToSlide(slides.length - 1); }}>
                           {slide.bottomLinks[1].text}
                         </a>
                       </div>
