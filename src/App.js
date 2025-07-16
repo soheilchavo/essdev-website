@@ -33,13 +33,13 @@ function App() {
       id: 3,
       type: "about",
       title: "About",
-      subtitle: "Queen's EngSoc Software Development Team",
-      description: "description",
+      subtitle: "Quality Software Solutions",
+      description: "The Queen's EngSoc Software Development team is a group of students focused on learning software developement through hands-on experience with real clients. We are open to all clients to request work. Projects are considered every September, and the team is always looking for more members.",
       links: [
-        { text: "link - link - link", href: "#" },
-        { text: "link - link", href: "#" }
+        { text: "EngSoc clubs site for more information", href: "https://www.engsoc.queensu.ca/get-involved/clubs/" },
+        { text: "Our instagram page!", href: "https://www.instagram.com/queens.essdev/" }
       ],
-      image: "/AboutImage.jpg" // updated to use the correct image from public
+      image: "/AboutImage.jpg"
     },
     {
       id: 2,
@@ -230,7 +230,7 @@ function App() {
       if (!isTransitioning && currentSlide < slides.length - 1) {
         nextSlide();
       }
-    }, 12000); // Change slide every 6 seconds
+    }, 122000); //Change slide every x seconds
 
     return () => clearInterval(interval);
   }, [isTransitioning, currentSlide, slides.length]);
@@ -326,8 +326,7 @@ function App() {
                       </div>
                       <div className="image-content">
                         <div className="project-image">
-                          {/* Placeholder for project image */}
-                          <div className="image-placeholder"></div>
+                          <img src={slide.image} alt={slide.title} />
                         </div>
                       </div>
                     </div>
