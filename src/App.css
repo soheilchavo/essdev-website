@@ -10,6 +10,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Improve text rendering on mobile */
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 .App {
@@ -22,6 +26,15 @@ body {
   color: black;
   display: flex;
   flex-direction: column;
+  /* Improve mobile performance */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix background attachment on mobile */
+@media (max-width: 768px) {
+  .App {
+    background-attachment: scroll;
+  }
 }
 
 /* Navigation */
@@ -33,6 +46,8 @@ body {
   position: relative;
   z-index: 100;
   min-height: 80px;
+  /* Improve mobile tap targets */
+  touch-action: manipulation;
 }
 
 .navbar::after {
@@ -59,6 +74,9 @@ body {
   cursor: pointer;
   transform: translateY(1.1rem);
   transition: width 0.3s ease;
+  /* Improve mobile tap target */
+  min-height: 44px;
+  display: block;
 }
 
 /* Desktop Navigation */
@@ -74,6 +92,11 @@ body {
   font-weight: 200;
   transition: color 0.2s ease;
   position: relative;
+  /* Better mobile tap targets */
+  padding: 0.5rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .desktop-nav a:hover {
@@ -89,9 +112,13 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.8rem;
   z-index: 101;
   position: relative;
+  /* Improve mobile tap target */
+  min-width: 44px;
+  min-height: 44px;
+  touch-action: manipulation;
 }
 
 .hamburger {
@@ -145,6 +172,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(20px);
   display: flex;
@@ -153,6 +181,8 @@ body {
   transform: translateY(-100%);
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 99;
+  /* Prevent scrolling when menu is open */
+  overflow: hidden;
 }
 
 .mobile-nav.open {
@@ -175,6 +205,12 @@ body {
   padding: 1rem;
   border-radius: 12px;
   position: relative;
+  /* Better mobile tap targets */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
 }
 
 .mobile-nav-links a:hover {
@@ -191,6 +227,8 @@ body {
   justify-content: center;
   padding: 2rem;
   position: relative;
+  /* Improve mobile scrolling */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Slideshow Container */
@@ -203,6 +241,7 @@ body {
 .content-frame {
   width: 100%;
   height: 78vh;
+  height: 78dvh; /* Dynamic viewport height for mobile */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -336,15 +375,15 @@ body {
 }
 
 .section-title {
-  font-size: 2.1rem;
+  font-size: clamp(1.8rem, 4vw, 2.1rem);
   font-weight: 300;
   color: rgb(255, 255, 255);
   margin-bottom: 1rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .project-title {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 400;
   color: rgb(255, 255, 255);
   margin-bottom: 1.5rem;
@@ -352,7 +391,7 @@ body {
 }
 
 .description-text {
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.7;
   margin-bottom: 1rem;
@@ -372,10 +411,16 @@ body {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
   text-decoration-thickness: 0.07rem;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   transition: color 0.2s ease;
   font-weight: 200;
   width: fit-content;
+  /* Better mobile tap targets */
+  padding: 0.5rem;
+  margin: -0.5rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .section-link:hover {
@@ -388,6 +433,10 @@ body {
   border-radius: 35px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  /* Better mobile scaling */
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
 }
 
 .project-image img {
@@ -434,7 +483,7 @@ body {
 
 .contact-item {
   margin-bottom: 1.5rem;
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   line-height: 1.4;
 }
 
@@ -466,6 +515,10 @@ body {
   transition: all 0.3s ease;
   z-index: 5;
   backdrop-filter: blur(10px);
+  /* Better mobile tap targets */
+  min-width: 44px;
+  min-height: 44px;
+  touch-action: manipulation;
 }
 
 .nav-button:hover:not(:disabled) {
@@ -509,6 +562,18 @@ body {
   transition: all 0.4s ease;
   outline: none;
   position: relative;
+  /* Better mobile tap targets - using pseudo-element for larger touch area */
+  touch-action: manipulation;
+}
+
+.indicator::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  /* Invisible touch target area */
 }
 
 .indicator::before {
@@ -538,9 +603,9 @@ body {
 }
 
 .main-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.1;
   margin-bottom: 0.5rem;
   color: rgb(255, 255, 255);
   overflow: hidden;
@@ -563,7 +628,7 @@ body {
 }
 
 .tagline {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: rgb(255, 255, 255);
   margin-bottom: 2rem;
   margin-top: 2rem;
@@ -575,6 +640,7 @@ body {
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
 .bottom-link {
@@ -582,11 +648,18 @@ body {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
   text-decoration-thickness: 0.07rem;
-  font-size: 1rem; 
+  font-size: clamp(0.9rem, 2vw, 1rem);
   transition: color 0.2s ease;
   border-bottom: 1px solid transparent;
   padding-bottom: 2px;
   font-weight: 200;
+  /* Better mobile tap targets */
+  padding: 0.5rem;
+  margin: -0.5rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  touch-action: manipulation;
 }
 
 .bottom-link:hover {
@@ -597,8 +670,10 @@ body {
 
 .bottom-or {
   color: rgb(255, 255, 255);
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 200;
+  display: flex;
+  align-items: center;
 }
 
 .scroll-indicator {
@@ -655,7 +730,20 @@ body {
   z-index: 1;
 }
 
-/* Responsive Design */
+/* Improved Mobile Support - Additional Breakpoints */
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .content-frame {
+    max-width: 1400px;
+  }
+  
+  .two-column-layout {
+    padding: 2rem 6rem;
+  }
+}
+
+/* Desktop */
 @media (max-width: 1024px) {
   .navbar {
     padding: 0.5rem clamp(1.5rem, 8vw, 12rem) 0rem clamp(1rem, 6vw, 10rem);
@@ -678,6 +766,7 @@ body {
   .two-column-layout {
     gap: 3rem;
     padding: 3.5rem 3rem;
+    margin-left: 1.5rem;
   }
 
   .text-content {
@@ -688,25 +777,9 @@ body {
     padding-left: 1.5rem;
   }
 
-  .section-title {
-    font-size: 2.4rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .project-title {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-  }
-
-  .description-text {
-    font-size: 1rem;
-    margin-bottom: 2.5rem;
-    max-width: 450px;
-  }
-
   .project-image {
-    max-width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
   }
 
   .contact-layout {
@@ -716,13 +789,9 @@ body {
   .contact-info {
     margin: 2.5rem 0 3.5rem 0;
   }
-
-  .contact-item {
-    font-size: 1.2rem;
-    margin-bottom: 1.3rem;
-  }
 }
 
+/* Tablet Portrait */
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem 2rem;
@@ -750,7 +819,13 @@ body {
   .content-frame {
     height: auto;
     min-height: 60vh;
+    min-height: 60dvh;
     margin: 1rem;
+    border-radius: 30px;
+  }
+
+  .content-frame::before {
+    border-radius: 30px;
   }
 
   .content-inner {
@@ -758,7 +833,7 @@ body {
   }
   
   .main-title {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 2.5rem);
   }
   
   .bottom-nav {
@@ -773,6 +848,8 @@ body {
     gap: 3rem;
     padding: 2.5rem 2rem;
     max-width: 100%;
+    margin-left: 0;
+    margin-bottom: 2rem;
   }
 
   .text-content {
@@ -786,25 +863,9 @@ body {
     order: -1;
   }
 
-  .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-  }
-
-  .project-title {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .description-text {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    max-width: 100%;
-  }
-
   .project-image {
-    max-width: 300px;
-    height: 300px;
+    width: min(300px, 90vw);
+    height: min(300px, 90vw);
   }
 
   .contact-layout {
@@ -816,15 +877,10 @@ body {
     margin: 2rem 0 3rem 0;
   }
 
-  .contact-item {
-    font-size: 1.15rem;
-    margin-bottom: 1.2rem;
-  }
-
   /* Mobile slideshow adjustments */
   .nav-button {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 
   .nav-prev {
@@ -841,8 +897,8 @@ body {
   }
 
   .indicator {
-    width: 2px;
-    height: 40px;
+    width: 4px;
+    height: 50px;
   }
 
   .scroll-indicator {
@@ -850,6 +906,37 @@ body {
   }
 }
 
+/* Mobile Landscape */
+@media (max-width: 768px) and (orientation: landscape) {
+  .content-frame {
+    height: auto;
+    min-height: 80vh;
+    min-height: 80dvh;
+  }
+  
+  .two-column-layout {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .text-content {
+    text-align: left;
+    flex: 1;
+  }
+  
+  .image-content {
+    flex: 0.6;
+    order: 1;
+  }
+  
+  .project-image {
+    width: min(250px, 35vw);
+    height: min(250px, 35vw);
+  }
+}
+
+/* Mobile Portrait - Large */
 @media (max-width: 480px) {
   .navbar {
     padding: 0.8rem 1.5rem;
@@ -866,20 +953,29 @@ body {
   }
 
   .mobile-nav-links a {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
     gap: 2rem;
   }
 
   .main-title {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 5vw, 2rem);
   }
   
   .tagline {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
   }
 
   .content-inner {
     padding: 1rem;
+  }
+
+  .content-frame {
+    border-radius: 20px;
+    margin: 0.5rem;
+  }
+
+  .content-frame::before {
+    border-radius: 20px;
   }
 
   /* Smaller mobile responsive for new layouts */
@@ -888,24 +984,9 @@ body {
     gap: 2.5rem;
   }
 
-  .section-title {
-    font-size: 1.9rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .project-title {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .description-text {
-    font-size: 0.95rem;
-    margin-bottom: 1.8rem;
-  }
-
   .project-image {
-    max-width: 200px;
-    height: 200px;
+    width: min(250px, 85vw);
+    height: min(250px, 85vw);
   }
 
   .contact-layout {
@@ -916,14 +997,9 @@ body {
     margin: 1.5rem 0 2.5rem 0;
   }
 
-  .contact-item {
-    font-size: 1.05rem;
-    margin-bottom: 1rem;
-  }
-
   .nav-button {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
 
   .nav-prev {
@@ -940,12 +1016,131 @@ body {
   }
 
   .indicator {
-    width: 2px;
-    height: 30px;
+    width: 3px;
+    height: 40px;
   }
 
   .scroll-indicator {
     bottom: 0.8rem;
+  }
+}
+
+/* Very Small Mobile */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 0.7rem 1rem;
+  }
+  
+  .navbar::after {
+    left: 1rem;
+    right: 1rem;
+  }
+  
+  .content-frame {
+    margin: 0.25rem;
+    border-radius: 15px;
+  }
+  
+  .content-frame::before {
+    border-radius: 15px;
+  }
+  
+  .content-inner {
+    padding: 0.8rem;
+  }
+  
+  .two-column-layout {
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+  
+  .project-image {
+    width: min(200px, 80vw);
+    height: min(200px, 80vw);
+  }
+  
+  .mobile-nav-links a {
+    font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+    padding: 0.8rem;
+  }
+  
+  .nav-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .slide-indicators {
+    left: 0.5rem;
+  }
+}
+
+/* Very Large Mobile Landscape */
+@media (max-width: 480px) and (orientation: landscape) and (max-height: 500px) {
+  .content-frame {
+    height: auto;
+    min-height: 85vh;
+    min-height: 85dvh;
+  }
+  
+  .main-title {
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+  }
+  
+  .tagline {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    margin: 1rem 0;
+  }
+  
+  .two-column-layout {
+    flex-direction: row;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .project-image {
+    width: min(180px, 30vw);
+    height: min(180px, 30vw);
+  }
+}
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .noise-perlin::after {
+    background-size: 50px 50px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .scroll-indicator {
+    animation: none;
+  }
+  
+  .main-title-line,
+  .main-title-sub {
+    animation: none;
+    border-right: none;
+  }
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+  .nav-button {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+  
+  .indicator {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  
+  .indicator.active {
+    background: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -989,7 +1184,7 @@ body {
 
 .image-label {
   color: #fff;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
   text-align: left;
   margin-top: 0.5rem;
   opacity: 0.85;
@@ -1004,6 +1199,8 @@ body {
   display: flex;
   gap: 1rem;
   margin: 1.2rem 0 1.2rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .join-btn {
@@ -1013,13 +1210,19 @@ body {
   display: inline-block;
   padding: 1.1rem 2.5rem;
   border-radius: 24px;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 500;
   text-decoration: none;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: background 0.2s, transform 0.2s;
   border: none;
   cursor: pointer;
+  /* Better mobile tap targets */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
 }
 
 .join-btn:hover {
@@ -1034,7 +1237,7 @@ body {
   display: inline-block;
   padding: 1.1rem 2.5rem;
   border-radius: 24px;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 500;
   text-decoration: none;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -1042,10 +1245,40 @@ body {
   border: none;
   outline: none;
   cursor: pointer;
+  /* Better mobile tap targets */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
 }
 
 .contact-btn:hover {
   background: transparent;
   outline: 1px solid #ffffffda;
   transform: translateY(-2px) scale(1.04);
+}
+
+/* Mobile Button Adjustments */
+@media (max-width: 768px) {
+  .slide-action-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  
+  .join-btn,
+  .contact-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 1rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .join-btn,
+  .contact-btn {
+    padding: 0.9rem 1.8rem;
+    max-width: 240px;
+  }
 }
