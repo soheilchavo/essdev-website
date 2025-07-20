@@ -323,9 +323,16 @@ body {
 .image-content {
   flex: 0.8;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.image-content:hover {
+  transform: scale(1.02) rotate(0.4deg);
+  transition: transform 0.3s ease;
 }
 
 .section-title {
@@ -533,9 +540,19 @@ body {
 .main-title {
   font-size: 3rem;
   font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
   color: rgb(255, 255, 255);
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .05em;
+  padding: 0;
+}
+
+.main-title.done {
+  animation: typing 0.1s steps(40, end);
+  border-right: none;
 }
 
 .highlight {
@@ -549,6 +566,7 @@ body {
   font-size: 1.2rem;
   color: rgb(255, 255, 255);
   margin-bottom: 2rem;
+  margin-top: 2rem;
   font-weight: 300;
 }
 
@@ -603,6 +621,19 @@ body {
   60% {
     transform: translateX(-50%) translateY(-5px);
   }
+}
+
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgba(249, 249, 249, 0.228); }
 }
 
 .noise-perlin {
@@ -916,4 +947,105 @@ body {
   .scroll-indicator {
     bottom: 0.8rem;
   }
+}
+
+.main-title-line {
+  display: block;
+  overflow: hidden;
+  border-right: .15em solid rgba(172, 172, 172, 0.965);
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .05em;
+  animation: typing 0.6s steps(20, end);
+  margin-bottom: 0.1rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.main-title-line.done {
+  animation: none;
+  border-right: none;
+}
+
+.main-title-sub {
+  display: block;
+  overflow: hidden;
+  border-right: .15em solid rgba(172, 172, 172, 0.965);
+  white-space: nowrap;
+  margin-bottom: 2rem;
+  letter-spacing: .05em;
+  animation: typing 0.6s steps(20, end);
+  animation-delay: 0.8s;
+  animation-fill-mode: backwards;
+  margin-bottom: 0;
+  line-height: 1;
+  padding: 0;
+}
+
+.main-title-sub.done {
+  animation: none;
+  border-right: none;
+}
+
+.image-label {
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: left;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  width: 100%;
+  align-self: flex-start;
+  padding-left: 4px;
+}
+
+.slide-action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1.2rem 0 1.2rem 0;
+}
+
+.join-btn {
+  background: linear-gradient(90deg, #c13db8 20%, #a745d895 100%);
+  outline: none;
+  color: #fff;
+  display: inline-block;
+  padding: 1.1rem 2.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.join-btn:hover {
+  background: transparent;
+  outline: 1px solid #ffffffda;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.contact-btn {
+  background: linear-gradient(90deg, #3a7bd5 50%, #2260dc 100%);
+  color: #fff;
+  display: inline-block;
+  padding: 1.1rem 2.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.contact-btn:hover {
+  background: transparent;
+  outline: 1px solid #ffffffda;
+  transform: translateY(-2px) scale(1.04);
 }

@@ -6,6 +6,7 @@ function App() {
   const lastUpdateTime = useRef(0);
   const lastMousePosition = useRef({ x: 50, y: 50 });
   const rafRef = useRef(null);
+  const mainTitleRef = useRef(null); // Add ref for main title
   
   // Slideshow state
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -30,7 +31,7 @@ function App() {
       ]
     },
     {
-      id: 3,
+      id: 2,
       type: "about",
       title: "About",
       subtitle: "Quality Software Solutions",
@@ -39,26 +40,49 @@ function App() {
         { text: "EngSoc clubs site for more information", href: "https://www.engsoc.queensu.ca/get-involved/clubs/" },
         { text: "Our instagram page!", href: "https://www.instagram.com/queens.essdev/" }
       ],
-      image: "/AboutImage.jpg"
+      image: "/AboutImage.jpg",
+      imageLabel: "A group photo of the EssDev Team in 2023"
     },
     {
-      id: 2,
-      type: "examples",
-      title: "Examples",
-      subtitle: "Project Number 1",
-      description: "description",
-      links: [
-        { text: "link - link - link", href: "#" },
-        { text: "link - link", href: "#" }
-      ],
-      image: "/project-image.jpg" // placeholder for now
+      id: 3,
+      type: "for students",
+      title: "For Students",
+      image: "/ForStudentsImage.jpg",
+      imageLabel: "Queen's EngSoc Members",
+      subtitle: "Up your programming skills with real client work",
+      description: "Have you always wanted to learn how to code? Want to get real world experience? Want to work with a team of passionate students? Then EssDev is the place for you!\n\nWe are always looking for more members to join our team. The team is open to hiring Project Managers and Software Developers, applications open late August and run through to the end of September.",
+      // Add joinLink for clarity
+      joinLink: "https://breezy.engsoc.queensu.ca/?#positions"
     },
     {
       id: 4,
+      type: "for clients",
+      title: "For Clients",
+      image: "/ForClientsImage.jpg",
+      imageLabel: "Smith Engineering Administration",
+      subtitle: "Free and high-quality projects",
+      description: "Are you a club, team, organization, or business in need of software solutions? Whether you need a website, a mobile app, or custom software, EssDev offers free, high-quality, and reliable software development services.\n\nWe are always looking for new clients and projects. If you are interested, please contact us.",
+      // Add contactLink for clarity
+      contactLink: "#contact"
+    },
+    // {
+    //   id: 5,
+    //   type: "examples",
+    //   title: "Examples",
+    //   subtitle: "Project Number 1",
+    //   description: "description",
+    //   links: [
+    //     { text: "link - link - link", href: "#" },
+    //     { text: "link - link", href: "#" }
+    //   ],
+    //   image: "/project-image.jpg" // placeholder for now
+    // },
+    {
+      id: 6,
       type: "contact",
       title: "Contact",
       email: "essdev@engsoc.queensu.ca",
-      phone: "613-533-2323",
+      phone: "613-533-2323 (Office)",
       description: "The Engineering Society Software Developement team is open to all clients to request work. Projects are considered every September, and the team is always looking for more members."
     }
   ];
@@ -78,7 +102,10 @@ function App() {
   };
 
   const goToSlide = (index) => {
-    if (isTransitioning || index === currentSlide) return;
+    if (isTransitioning || index === currentSlide) {
+      // If navigating to hero slide, force animation reset (no longer needed)
+      return;
+    }
     setIsTransitioning(true);
     setCurrentSlide(index);
     setTimeout(() => setIsTransitioning(false), 500);
@@ -235,6 +262,31 @@ function App() {
     return () => clearInterval(interval);
   }, [isTransitioning, currentSlide, slides.length]);
 
+  // For typing animation
+  const [mainTitleDone, setMainTitleDone] = useState(false);
+  const [subTitleDone, setSubTitleDone] = useState(false);
+  // Remove heroAnimKey logic
+
+  useEffect(() => {
+    setMainTitleDone(false);
+    setSubTitleDone(false);
+    const mainTimer = setTimeout(() => setMainTitleDone(true), 600); // match .main-title-line animation
+    const subTimer = setTimeout(() => setSubTitleDone(true), 1400); // main + sub animation
+    return () => {
+      clearTimeout(mainTimer);
+      clearTimeout(subTimer);
+    };
+  }, []); // Only run on mount
+
+  // Helper to render description with line breaks
+  const renderDescription = (desc) =>
+    desc.split('\n').map((line, idx) => (
+      <span key={idx}>
+        {line}
+        {idx !== desc.split('\n').length - 1 && <br />}
+      </span>
+    ));
+
   return (
     <div className="App">
       {/* Navigation Header */}
@@ -246,8 +298,10 @@ function App() {
         {/* Desktop Navigation */}
         <div className="nav-links desktop-nav">
           <a href="#about" onClick={e => { e.preventDefault(); goToSlide(1); }} className="nav-link">about</a>
-          <a href="#examples" onClick={e => { e.preventDefault(); goToSlide(2); }} className="nav-link">examples</a>
-          <a href="#contact" onClick={e => { e.preventDefault(); goToSlide(3); }} className="nav-link">contact</a>
+          <a href="#for-students" onClick={e => { e.preventDefault(); goToSlide(2); }} className="nav-link">for students</a>
+          <a href="#for-clients" onClick={e => { e.preventDefault(); goToSlide(3); }} className="nav-link">for clients</a>
+          {/* <a href="#examples" onClick={e => { e.preventDefault(); goToSlide(4); }} className="nav-link">examples</a> */}
+          <a href="#contact" onClick={e => { e.preventDefault(); goToSlide(4); }} className="nav-link">contact</a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -274,8 +328,10 @@ function App() {
             onClick={(e) => e.stopPropagation()}
           >
             <a href="#about" onClick={e => { e.preventDefault(); goToSlide(1); closeMobileMenu(); }} className="nav-link">about</a>
-            <a href="#examples" onClick={e => { e.preventDefault(); goToSlide(2); closeMobileMenu(); }} className="nav-link">examples</a>
-            <a href="#contact" onClick={e => { e.preventDefault(); goToSlide(3); closeMobileMenu(); }} className="nav-link">contact</a>
+            <a href="#for-students" onClick={e => { e.preventDefault(); goToSlide(2); closeMobileMenu(); }} className="nav-link">for students</a>
+            <a href="#for-clients" onClick={e => { e.preventDefault(); goToSlide(3); closeMobileMenu(); }} className="nav-link">for clients</a>
+            {/* <a href="#examples" onClick={e => { e.preventDefault(); goToSlide(4); closeMobileMenu(); }} className="nav-link">examples</a> */}
+            <a href="#contact" onClick={e => { e.preventDefault(); goToSlide(4); closeMobileMenu(); }} className="nav-link">contact</a>
           </div>
         </div>
       </nav>
@@ -295,8 +351,8 @@ function App() {
                   {slide.type === "hero" ? (
                     <div className="content-inner hero-layout">
                       <h1 className="main-title">
-                        {slide.title}<br />
-                        <span className="highlight">{slide.subtitle}</span>
+                        <span className={`main-title-line${mainTitleDone ? ' done' : ''}`}>{slide.title}</span>
+                        <span className={`main-title-sub highlight${subTitleDone ? ' done' : ''}`}>{slide.subtitle}</span>
                       </h1>
                       <p className="tagline">{slide.tagline}</p>
                       
@@ -310,25 +366,42 @@ function App() {
                         </a>
                       </div>
                     </div>
-                  ) : slide.type === "examples" || slide.type === "about" ? (
+                  ) : slide.type === "examples" || slide.type === "about" || slide.type === "for students" || slide.type === "for clients" ? (
                     <div className="content-inner two-column-layout">
                       <div className="text-content">
                         <h1 className="section-title">{slide.title}</h1>
                         <h2 className="project-title">{slide.subtitle}</h2>
-                        <p className="description-text">{slide.description}</p>
+                        <p className="description-text">{renderDescription(slide.description)}</p>
+                        {/* Buttons for For Students and For Clients slides */}
+                        {slide.type === 'for students' && (
+                          <div className="slide-action-buttons">
+                            <a href={slide.joinLink || "#join"} className="join-btn" target="_blank" rel="noopener noreferrer">Join Now</a>
+                          </div>
+                        )}
+                        {slide.type === 'for clients' && (
+                          <div className="slide-action-buttons">
+                            <a href="#contact" className="contact-btn" onClick={e => { e.preventDefault(); goToSlide(slides.length - 1); }}>Contact Now</a>
+                          </div>
+                        )}
                         <div className="section-links">
-                          {slide.links.map((link, linkIndex) => (
+                          {slide.links && slide.links.map((link, linkIndex) => (
                             <a key={linkIndex} href={link.href} className="section-link">
                               {link.text}
                             </a>
                           ))}
                         </div>
                       </div>
-                      <div className="image-content">
-                        <div className="project-image">
-                          <img src={slide.image} alt={slide.title} />
+                      {slide.image && (
+                        <div className="image-content">
+                          <div className="project-image">
+                            <img src={slide.image} alt={slide.title} />
+                          </div>
+                          {/* Image label below the image */}
+                          <div className="image-label">
+                            {slide.imageLabel || slide.title}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   ) : slide.type === "contact" ? (
                     <div className="content-inner contact-layout">
