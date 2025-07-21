@@ -50,8 +50,8 @@ function App() {
       image: "/ForStudentsImage.jpg",
       imageLabel: "Queen's EngSoc Members",
       subtitle: "Up your programming skills with real client work",
-      description: "Have you always wanted to learn how to code? Want to get real world experience? Want to work with a team of passionate students? Then EssDev is the place for you!\n\nWe are always looking for more members to join our team. The team is open to hiring Project Managers and Software Developers, applications open late August and run through to the end of September.",
-      // Add joinLink for clarity
+      description: "Have you always wanted to learn how to code? Want to get real world experience? Want to work with a team of passionate students? Then EssDev is the place for you!\n\nThe team is open to hiring Project Managers and Software Developers, applications open late August and run through to the end of September.",
+      
       joinLink: "https://breezy.engsoc.queensu.ca/?#positions"
     },
     {
