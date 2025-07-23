@@ -15,6 +15,9 @@ function App() {
   // Mobile menu state
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
+  // Loading state
+  const [loading, setLoading] = useState(true);
+
   const THROTTLE_MS = 16; // ~60fps
   
   // Sample slides data
@@ -86,6 +89,32 @@ function App() {
       description: "The Engineering Society Software Developement team is open to all clients to request work. Projects are considered every September, and the team is always looking for more members."
     }
   ];
+
+  // Helper to preload images
+  const preloadImages = (imageUrls) => {
+    return Promise.all(
+      imageUrls.map(
+        (url) =>
+          new Promise((resolve) => {
+            const img = new window.Image();
+            img.src = url;
+            img.onload = img.onerror = resolve;
+          })
+      )
+    );
+  };
+
+  useEffect(() => {
+    // Gather all images from slides
+    const imageUrls = slides
+      .map((slide) => slide.image)
+      .filter(Boolean)
+      .map((url) => url.startsWith('/') ? process.env.PUBLIC_URL + url : url);
+    preloadImages(imageUrls).then(() => {
+      // Add a small delay for smoothness
+      setTimeout(() => setLoading(false), 400);
+    });
+  }, []);
 
   const nextSlide = () => {
     if (isTransitioning || currentSlide >= slides.length - 1) return;
@@ -289,6 +318,15 @@ function App() {
 
   return (
     <div className="App">
+      {/* Loading Modal */}
+      {loading && (
+        <div className="loading-modal">
+          <div className="loading-spinner">
+            <div className="spinner-wheel"></div>
+            <div className="loading-text">Loading...</div>
+          </div>
+        </div>
+      )}
       {/* Navigation Header */}
       <nav className="navbar">
         <div className="nav-brand" onClick={() => goToSlide(0)} style={{ cursor: 'pointer' }}>
