@@ -796,25 +796,98 @@ body {
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow: hidden !important;
+    height: 100vh;
+    position: fixed;
+    width: 100vw;
+    overscroll-behavior: none;
+  }
+  .App {
+    overflow: hidden !important;
+    height: 100vh;
+    width: 100vw;
+  }
+  .content-frame {
+    overflow: hidden !important;
+    height: 100vh;
+    width: 100vw;
+  }
+  .slide-indicators {
+    display: none !important;
+  }
+  .nav-button {
+    display: none !important;
+  }
+  .section-title {
+    font-size: 1.2rem;
+  }
+  .project-title {
+    font-size: 1rem;
+  }
+  .description-text {
+    font-size: 0.92rem;
+  }
+  .image-label {
+    font-size: 0.75rem;
+  }
   .content-inner {
     max-height: none; /* Remove restrictive max-height */
     padding: 0.7rem;
     overflow-y: visible; /* Remove forced scrolling */
   }
   .two-column-layout {
-    padding: 1rem 0.5rem;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 1.2rem 0.5rem;
+    gap: 1.2rem;
     margin-bottom: 0.5rem;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
   .text-content {
-    max-height: 30vh;
-    overflow-y: auto;
-    font-size: 1rem;
+    padding-right: 0;
+    padding-bottom: 1rem;
+    max-width: 100%;
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .image-content {
+    padding-left: 0;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
   }
   .project-image {
+    margin: 0 auto;
     width: min(220px, 80vw);
     height: auto;
     aspect-ratio: 1/1;
+  }
+  .image-label {
+    margin: 0.5rem auto 0 auto;
+    text-align: center;
+    width: 100%;
+  }
+  .content-frame {
+    width: 100vw;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    max-width: 100vw;
+    right: 3rem;
+    bottom: 3.4rem;
+    box-shadow: none;
+    overflow-x: hidden;
+  }
+  .content-frame::before {
+    border-radius: 0;
+    padding: 0;
   }
 }
 

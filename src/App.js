@@ -291,6 +291,34 @@ function App() {
     return () => clearInterval(interval);
   }, [isTransitioning, currentSlide, slides.length]);
 
+  // Add tap-to-advance for mobile
+  useEffect(() => {
+    const handleTap = (e) => {
+      // Only on mobile screens
+      if (window.innerWidth > 768) return;
+      // Prevent tap if a button or link is tapped
+      let target = e.target;
+      while (target && target !== contentFrameRef.current) {
+        if (target.tagName === 'A' || target.tagName === 'BUTTON') return;
+        target = target.parentElement;
+      }
+      if (!isTransitioning && currentSlide < slides.length - 1) {
+        nextSlide();
+      }
+    };
+    const frame = contentFrameRef.current;
+    if (frame) {
+      frame.addEventListener('touchend', handleTap);
+      frame.addEventListener('click', handleTap); // fallback for tap on some browsers
+    }
+    return () => {
+      if (frame) {
+        frame.removeEventListener('touchend', handleTap);
+        frame.removeEventListener('click', handleTap);
+      }
+    };
+  }, [currentSlide, isTransitioning, slides.length]);
+
   // For typing animation
   const [mainTitleDone, setMainTitleDone] = useState(false);
   const [subTitleDone, setSubTitleDone] = useState(false);
