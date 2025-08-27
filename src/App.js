@@ -422,8 +422,8 @@ function App() {
                       </h1>
                       <p className="tagline">{slide.tagline}</p>
 
-                      <button className='apply-pm-btn' href="https://breezy.engsoc.queensu.ca/?#positions">Apply For Project Manager Positions</button>
-                      <button className='apply-software-btn' href="https://breezy.engsoc.queensu.ca/?#positions">Apply For Software Developer Positions</button>
+                      <button className='apply-pm-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/?#positions", "_blank")}>Apply For Project Manager Positions</button>
+                      <button className='apply-software-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/?#positions", "_blank")}>Apply For Software Developer Positions</button>
 {/*                       
                       <div className="bottom-nav">
                         <a href={slide.bottomLinks[0].href} className="bottom-link" onClick={e => { e.preventDefault(); goToSlide(2); }}>
