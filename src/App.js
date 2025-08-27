@@ -421,7 +421,10 @@ function App() {
                         <span className={`main-title-sub highlight${subTitleDone ? ' done' : ''}`}>{slide.subtitle}</span>
                       </h1>
                       <p className="tagline">{slide.tagline}</p>
-                      
+
+                      <button className='apply-pm-btn' href="https://breezy.engsoc.queensu.ca/?#positions">Apply For Project Manager Positions</button>
+                      <button className='apply-software-btn' href="https://breezy.engsoc.queensu.ca/?#positions">Apply For Software Developer Positions</button>
+{/*                       
                       <div className="bottom-nav">
                         <a href={slide.bottomLinks[0].href} className="bottom-link" onClick={e => { e.preventDefault(); goToSlide(2); }}>
                           {slide.bottomLinks[0].text}
@@ -430,7 +433,7 @@ function App() {
                         <a href={slide.bottomLinks[1].href} className="bottom-link" onClick={e => { e.preventDefault(); goToSlide(slides.length - 1); }}>
                           {slide.bottomLinks[1].text}
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   ) : slide.type === "examples" || slide.type === "about" || slide.type === "for students" || slide.type === "for clients" ? (
                     <div className="content-inner two-column-layout">

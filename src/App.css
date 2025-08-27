@@ -632,8 +632,8 @@ body {
 .tagline {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: rgb(255, 255, 255);
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
   font-weight: 300;
 }
 
@@ -641,7 +641,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -1111,10 +1111,58 @@ body {
   touch-action: manipulation;
 }
 
-.join-btn:hover {
+.join-btn:hover, .apply-software-btn:hover, .apply-pm-btn:hover {
   background: transparent;
   outline: 1px solid #ffffffda;
   transform: translateY(-2px) scale(1.04);
+}
+
+.apply-software-btn {
+  background: linear-gradient(90deg, #804cb9 20%, rgba(159, 45, 216, 0.584) 100%);
+  outline: none;
+  color: #fff;
+  display: inline-block;
+  padding: 1.1rem 2.5rem;
+  border-radius: 24px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* Better mobile tap targets */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+}
+
+.apply-pm-btn {
+  background: linear-gradient(90deg, #b9884c 20%, rgba(216, 99, 45, 0.584) 100%);
+  outline: none;
+  color: #fff;
+  display: inline-block;
+  padding: 1.1rem 2.5rem;
+  border-radius: 24px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* Better mobile tap targets */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
 }
 
 .contact-btn {
