@@ -422,7 +422,7 @@ function App() {
                       </h1>
                       <p className="tagline">{slide.tagline}</p>
 
-                      <button className='apply-pm-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/?#positions", "_blank")}>Apply For Project Manager Positions</button>
+                      <button className='apply-pm-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/p/30b00cd1c535-project-manager-at-engineering-society-software-development-team-essdev", "_blank")}>Apply For Project Manager Positions</button>
                       <button className='apply-software-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/?#positions", "_blank")}>Apply For Software Developer Positions</button>
 {/*                       
                       <div className="bottom-nav">
