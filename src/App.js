@@ -291,30 +291,62 @@ function App() {
     return () => clearInterval(interval);
   }, [isTransitioning, currentSlide, slides.length]);
 
-  // Add tap-to-advance for mobile
+  // Add swipe functionality for mobile
   useEffect(() => {
-    const handleTap = (e) => {
-      // Only on mobile screens
+    let startY = 0;
+    let startX = 0;
+    let startTime = 0;
+
+    const handleTouchStart = (e) => {
       if (window.innerWidth > 768) return;
-      // Prevent tap if a button or link is tapped
+      startY = e.touches[0].clientY;
+      startX = e.touches[0].clientX;
+      startTime = Date.now();
+    };
+
+    const handleTouchEnd = (e) => {
+      if (window.innerWidth > 768) return;
+      if (isTransitioning) return;
+      
+      const endY = e.changedTouches[0].clientY;
+      const endX = e.changedTouches[0].clientX;
+      const endTime = Date.now();
+      
+      const deltaY = startY - endY;
+      const deltaX = Math.abs(startX - endX);
+      const deltaTime = endTime - startTime;
+      
+      // Prevent swipe if a button or link was touched
       let target = e.target;
       while (target && target !== contentFrameRef.current) {
         if (target.tagName === 'A' || target.tagName === 'BUTTON') return;
         target = target.parentElement;
       }
-      if (!isTransitioning && currentSlide < slides.length - 1) {
-        nextSlide();
+      
+      // Only register as swipe if:
+      // - Vertical movement is significant (>50px)
+      // - Horizontal movement is minimal (<80px) 
+      // - Swipe was fast enough (<300ms)
+      if (Math.abs(deltaY) > 50 && deltaX < 80 && deltaTime < 300) {
+        if (deltaY > 0) {
+          // Swipe up - next slide
+          nextSlide();
+        } else {
+          // Swipe down - previous slide  
+          prevSlide();
+        }
       }
     };
+
     const frame = contentFrameRef.current;
     if (frame) {
-      frame.addEventListener('touchend', handleTap);
-      frame.addEventListener('click', handleTap); // fallback for tap on some browsers
+      frame.addEventListener('touchstart', handleTouchStart, { passive: true });
+      frame.addEventListener('touchend', handleTouchEnd);
     }
     return () => {
       if (frame) {
-        frame.removeEventListener('touchend', handleTap);
-        frame.removeEventListener('click', handleTap);
+        frame.removeEventListener('touchstart', handleTouchStart);
+        frame.removeEventListener('touchend', handleTouchEnd);
       }
     };
   }, [currentSlide, isTransitioning, slides.length]);
@@ -416,6 +448,7 @@ function App() {
                 >
                   {slide.type === "hero" ? (
                     <div className="content-inner hero-layout">
+                      <p className="organization-title">Engineering Society Software Development Team</p>
                       <h1 className="main-title">
                         <span className={`main-title-line${mainTitleDone ? ' done' : ''}`}>{slide.title}</span>
                         <span className={`main-title-sub highlight${subTitleDone ? ' done' : ''}`}>{slide.subtitle}</span>

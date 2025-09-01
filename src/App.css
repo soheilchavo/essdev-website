@@ -604,6 +604,16 @@ body {
   height: 100%;
 }
 
+.organization-title {
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
 .main-title {
   font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
@@ -840,16 +850,16 @@ body {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 1.2rem 0.5rem;
-    gap: 1.2rem;
-    margin-bottom: 0.5rem;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
   }
   .text-content {
     padding-right: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 1.5rem;
     max-width: 100%;
     width: 100%;
     text-align: left;
@@ -865,7 +875,7 @@ body {
   }
   .project-image {
     margin: 0 auto;
-    width: min(220px, 80vw);
+    width: min(320px, 85vw);
     height: auto;
     aspect-ratio: 1/1;
   }
@@ -903,6 +913,10 @@ body {
   .logo {
     width: clamp(4.5rem, 15vw, 6rem);
   }
+  .organization-title {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    margin-bottom: 0.6rem;
+  }
   .main-title {
     font-size: clamp(1.5rem, 5vw, 2rem);
   }
@@ -912,11 +926,11 @@ body {
     overflow-y: visible; /* Remove forced scrolling */
   }
   .two-column-layout {
-    padding: 0.5rem 0.2rem;
-    gap: 0.5rem;
+    padding: 1rem 0.8rem;
+    gap: 1rem;
   }
   .project-image {
-    width: min(150px, 90vw);
+    width: min(280px, 88vw);
     height: auto;
     aspect-ratio: 1/1;
   }
@@ -953,7 +967,7 @@ body {
     gap: 0.2rem;
   }
   .project-image {
-    width: min(100px, 95vw);
+    width: min(240px, 92vw);
     height: auto;
     aspect-ratio: 1/1;
   }
