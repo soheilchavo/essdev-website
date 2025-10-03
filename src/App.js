@@ -454,9 +454,9 @@ function App() {
                         <span className={`main-title-sub highlight${subTitleDone ? ' done' : ''}`}>{slide.subtitle}</span>
                       </h1>
                       <p className="tagline">{slide.tagline}</p>
-
+{/* 
                       <button className='apply-pm-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/p/30b00cd1c535-project-manager-at-engineering-society-software-development-team-essdev", "_blank")}>Apply For Project Manager Positions</button>
-                      <button className='apply-software-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/p/83b2ef007526-software-developer-at-engineering-society-software-development-team-essdev", "_blank")}>Apply For Software Developer Positions</button>
+                      <button className='apply-software-btn' onClick={() => window.open("https://breezy.engsoc.queensu.ca/p/83b2ef007526-software-developer-at-engineering-society-software-development-team-essdev", "_blank")}>Apply For Software Developer Positions</button> */}
 {/*                       
                       <div className="bottom-nav">
                         <a href={slide.bottomLinks[0].href} className="bottom-link" onClick={e => { e.preventDefault(); goToSlide(2); }}>
